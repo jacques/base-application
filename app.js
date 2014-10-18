@@ -21,7 +21,8 @@ var knex = require('knex')({
     database : 'baseapp_development'
   }
 });
-GLOBAL.bookshelf = require('bookshelf')(knex);
+var bookshelf = require('bookshelf')(knex);
+bookshelf.plugin('registry');
 
 var routes = require('./routes/index');
 
@@ -34,6 +35,12 @@ app.use(require('express-bunyan-logger')({
     stream: process.stdout
   }]
 }));
+
+app.use(function(req, res, next) {
+  req.db = bookshelf;
+  req.model = bookshelf.model.bind(bookshelf);
+  return next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
