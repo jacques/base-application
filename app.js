@@ -33,22 +33,27 @@ var Country = bookshelf.Model.extend({
 var Province = bookshelf.Model.extend({
   tableName: 'provinces',
   country: function() {
-    return this.hasOne(Country);
+    return this.belongsTo(Country);
   }
 });
 
 var User = bookshelf.Model.extend({
   tableName: 'users',
   country: function() {
-    return this.hasOne(Country);
+    return this.belongsTo(Country);
   },
   province: function() {
-    return this.hassOne(Province);
+    return this.belongsTo(Province);
   }
 });
 
 Country.fetchAll().then(function(collection) { console.log(JSON.stringify(collection)); });
-User.fetchAll().then(function(collection) { console.log(JSON.stringify(collection)); });
+Province.fetchAll({
+  withRelated: ['country']
+}).then(function(collection) { console.log(JSON.stringify(collection)); });
+User.fetchAll({
+  withRelated: ['country', 'province']
+}).then(function(collection) { console.log(JSON.stringify(collection)); });
 
 var app = express();
 
