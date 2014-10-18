@@ -6,9 +6,6 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 var log = require('bunyan').createLogger({
   name: 'baseapp',
   stream: process.stdout,
@@ -24,36 +21,10 @@ var knex = require('knex')({
     database : 'baseapp_development'
   }
 });
-var bookshelf = require('bookshelf')(knex);
+GLOBAL.bookshelf = require('bookshelf')(knex);
 
-var Country = bookshelf.Model.extend({
-  tableName: 'countries'
-});
-
-var Province = bookshelf.Model.extend({
-  tableName: 'provinces',
-  country: function() {
-    return this.belongsTo(Country);
-  }
-});
-
-var User = bookshelf.Model.extend({
-  tableName: 'users',
-  country: function() {
-    return this.belongsTo(Country);
-  },
-  province: function() {
-    return this.belongsTo(Province);
-  }
-});
-
-Country.fetchAll().then(function(collection) { console.log(JSON.stringify(collection)); });
-Province.fetchAll({
-  withRelated: ['country']
-}).then(function(collection) { console.log(JSON.stringify(collection)); });
-User.fetchAll({
-  withRelated: ['country', 'province']
-}).then(function(collection) { console.log(JSON.stringify(collection)); });
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
 var app = express();
 

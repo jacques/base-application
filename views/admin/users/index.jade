@@ -13,3 +13,8 @@ block content
           th Surname
           th
       tbody
+        - each user in users
+          tr
+            td= user.username
+            td= user.firstname
+            td= user.surname
