@@ -12,8 +12,8 @@ exports.up = (knex, Promise) ->
       t.string('address2')
       t.string('suburb')
       t.string('city')
-      t.string('province')
-      t.string('country')
+      t.string('province_id')
+      t.string('country_id')
       t.string('postal_code')
       t.timestamps()
   ]
