@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var Country = require('../app/models/country.js');
-var Province = require('../app/models/province.js');
-var User = require('../app/models/user.js');
-
 router.param(function(name, fn){
   if (fn instanceof RegExp) {
     return function(req, res, next, val){
@@ -46,7 +42,7 @@ router.get('/admin', function(req, res) {
 
 /* GET admin users page */
 router.get('/admin/users', function(req, res) {
-  User.fetchAll({
+  req.model('User').fetchAll({
     withRelated: ['country', 'province']
   }).then(function(users) {
     res.render('admin/users/index', { title: 'Base Application - Admin - Users', users: users.toJSON() });
@@ -57,7 +53,7 @@ router.param('id', /^\d+$/);
 
 /* GET admin show user page */
 router.get('/admin/users/:id', function(req, res){
-  User.where('id', req.params.id).fetch({
+  req.model('User').where('id', req.params.id).fetch({
     withRelated: ['country', 'province']
   }).then(function(user) {
     res.render('admin/users/show', { title: 'Base Application - Admin - Users - Show', user: user.toJSON() });
@@ -67,7 +63,7 @@ router.get('/admin/users/:id', function(req, res){
 });
 
 router.get('/admin/users/edit/:id', function(req, res){
-  User.where('id', req.params.id).fetch({
+  req.model('User').where('id', req.params.id).fetch({
     withRelated: ['country', 'province']
   }).then(function(user) {
     res.render('admin/users/edit', { title: 'Base Application - Admin - Users - Show', user: user.toJSON() });
