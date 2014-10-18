@@ -10,6 +10,7 @@
 
 [ ] - Allow the user to change their password
 [ ] - Allow a user to logout
+[ ] - Allow a user to modify certain data about themselves and track changes to an audit table
 
 ## Admin Interface
 
