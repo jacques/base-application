@@ -5,6 +5,20 @@ var Country = require('../app/models/country.js');
 var Province = require('../app/models/province.js');
 var User = require('../app/models/user.js');
 
+router.param(function(name, fn){
+  if (fn instanceof RegExp) {
+    return function(req, res, next, val){
+      var captures;
+      if (captures = fn.exec(String(val))) {
+        req.params[name] = captures;
+        next();
+      } else {
+        next('route');
+      }
+    }
+  }
+});
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Base Application' });
@@ -36,6 +50,17 @@ router.get('/admin/users', function(req, res) {
     withRelated: ['country', 'province']
   }).then(function(users) {
     res.render('admin/users/index', { title: 'Base Application - Admin - Users', users: users.toJSON() });
+  });
+});
+
+router.param('id', /^\d+$/);
+
+/* GET admin show user page */
+router.get('/admin/users/:id', function(req, res){
+  User.where('id', req.params.id).fetch({
+    withRelated: ['country', 'province']
+  }).then(function(user) {
+    res.render('admin/users/show', { title: 'Base Application - Admin - Users - Show', user: user.toJSON() });
   });
 });
 

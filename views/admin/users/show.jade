@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+  .container
+    h1 #{user.firstname} #{user.surname}
+
+    table.table.table-condensed.table-striped
+      tr
+        td
+          strong Username
+        td= user.username
+      tr
+        td
+          strong Firstname
+        td= user.firstname
+      tr
+        td
+          strong Surname
+        td= user.surname
+      tr
+        td
+          strong Email Address
+        td= user.email
+      tr
+        td
+          strong Address 1
+        td= user.address1
+      tr
+        td
+          strong Address 2
+        td= user.address2
+      tr
+        td
+          strong Suburb
+        td= user.suburb
+      tr
+        td
+          strong City
+        td= user.city
+      tr
+        td
+          strong Province
+        td= user.province.provincename
+      tr
+        td
+          strong Postal Code
+        td= user.country.countryname
+      tr
+        td
+          strong Postal Code
+        td= user.postal_code
