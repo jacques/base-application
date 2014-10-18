@@ -24,7 +24,6 @@ var knex = require('knex')({
 GLOBAL.bookshelf = require('bookshelf')(knex);
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
