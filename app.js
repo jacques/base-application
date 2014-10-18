@@ -24,6 +24,27 @@ var knex = require('knex')({
 var bookshelf = require('bookshelf')(knex);
 bookshelf.plugin('registry');
 
+bookshelf.model('Country', bookshelf.Model.extend({
+  tableName: 'countries'
+}));
+
+bookshelf.model('Province', bookshelf.Model.extend({
+  tableName: 'provinces',
+  country: function() {
+    return this.belongsTo(bookshelf.model('Country'));
+  }
+}));
+
+bookshelf.model('User', bookshelf.Model.extend({
+  tableName: 'users',
+  country: function() {
+    return this.belongsTo(bookshelf.model('Country'));
+  },
+  province: function() {
+    return this.belongsTo(bookshelf.model('Province'));
+  }
+}));
+
 var routes = require('./routes/index');
 
 var app = express();
