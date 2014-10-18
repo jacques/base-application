@@ -61,6 +61,8 @@ router.get('/admin/users/:id', function(req, res){
     withRelated: ['country', 'province']
   }).then(function(user) {
     res.render('admin/users/show', { title: 'Base Application - Admin - Users - Show', user: user.toJSON() });
+  }).catch(function(err) {
+    res.send(404);
   });
 });
 
