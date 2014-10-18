@@ -24,6 +24,31 @@ var knex = require('knex')({
     database : 'baseapp_development'
   }
 });
+var bookshelf = require('bookshelf')(knex);
+
+var Country = bookshelf.Model.extend({
+  tableName: 'countries'
+});
+
+var Province = bookshelf.Model.extend({
+  tableName: 'provinces',
+  country: function() {
+    return this.hasOne(Country);
+  }
+});
+
+var User = bookshelf.Model.extend({
+  tableName: 'users',
+  country: function() {
+    return this.hasOne(Country);
+  },
+  province: function() {
+    return this.hassOne(Province);
+  }
+});
+
+Country.fetchAll().then(function(collection) { console.log(JSON.stringify(collection)); });
+User.fetchAll().then(function(collection) { console.log(JSON.stringify(collection)); });
 
 var app = express();
 
