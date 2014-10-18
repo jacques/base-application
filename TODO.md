@@ -14,7 +14,7 @@
 
 ## Admin Interface
 
-[ ] - List Users
+[x] - List Users
 [ ] - Add a User
 [ ] - Edit a User
 [ ] - Delete a User (set deleted_at to NOW())
