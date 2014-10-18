@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,6 +13,16 @@ var log = require('bunyan').createLogger({
   name: 'baseapp',
   stream: process.stdout,
   level: 'info'
+});
+
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host     : '127.0.0.1',
+    user     : 'root',
+    password : '',
+    database : 'baseapp_development'
+  }
 });
 
 var app = express();
