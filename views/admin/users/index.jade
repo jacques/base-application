@@ -15,6 +15,7 @@ block content
       tbody
         - each user in users
           tr
-            td= user.username
+            td
+              a(href='/admin/users/#{user.id}')= user.username
             td= user.firstname
             td= user.surname
