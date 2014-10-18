@@ -66,4 +66,14 @@ router.get('/admin/users/:id', function(req, res){
   });
 });
 
+router.get('/admin/users/edit/:id', function(req, res){
+  User.where('id', req.params.id).fetch({
+    withRelated: ['country', 'province']
+  }).then(function(user) {
+    res.render('admin/users/edit', { title: 'Base Application - Admin - Users - Show', user: user.toJSON() });
+  }).catch(function(err) {
+    res.send(404);
+  });
+});
+
 module.exports = router;
