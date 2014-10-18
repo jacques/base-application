@@ -3,6 +3,8 @@ extends ../layout
 block content
   .container
     h1 #{user.firstname} #{user.surname}
+      .pull-right
+        a.btn.btn-info(href='/admin/users/edit/#{user.id}') Edit
 
     table.table.table-condensed.table-striped
       tr
