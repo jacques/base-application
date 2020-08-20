@@ -8,7 +8,7 @@
   "dependencies": {
     "assert": "^1.5.0",
     "assert-plus": "^0.1.5",
-    "bcrypt": "^0.8.7",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.8.4",
     "bookshelf": "^0.14.2",
     "bower": "^1.8.8",
